@@ -1,6 +1,15 @@
 # prolog-edu-app
 Repozitorij za projekt iz kolegija UUI, prolog aplikacija
 
+UPUTE ZA POKRETANJE
+u terminalu se sa naredbom cd postaviti na pravilnu lokaciju
+
+u mome slucaju to je bilo
+cd prolog_edu
+
+a puna putanja je bila C:\Users\Marko\Desktop\PrologEduApp\prolog_edu>
+
+Nakon toga pokrećete server sa naredbom "python EdukacijaApp.py"
 
 Nakon što ste pokrenuli Flask server
 U web pregledniku otvorite http://127.0.0.1:5000/
