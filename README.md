@@ -19,8 +19,8 @@ U web pregledniku otvorite http://127.0.0.1:5000/
 ---------------------------------------------------------------------------------
 
 Nalazite se na početnoj stranici
-S lijeve strane je sidebar
-Trenutno postoje tri destinacije gdje možete ići
+
+S lijeve strane je sidebar i Trenutno postoje tri destinacije gdje možete ići
 - Lekcije
 - Kvizovi
 - Projekti i Primjeri koda
