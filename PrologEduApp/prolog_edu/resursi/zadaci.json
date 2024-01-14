@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "opis": "Napišite funkciju koja pronalazi unuke za zadane roditelje. (koristi predikat 'djedbaka'))",
+      "prolog_code": "roditelj(ivo, ana).\nroditelj(ana, luka).\nroditelj(ana, dorotea).\nroditelj(ana, petar).\ndjedbaka(X, Y) :- roditelj(X, Z), roditelj(Z, Y).",
+      "rjesenje": ["Y = luka", "Y = dorotea", "Y = petar"]
+    },
+    {
+      "id": 2,
+      "opis": "Napišite funkciju za izračun faktorijela broja. (koristi 'factorial')",
+      "prolog_code": "factorial(0, 1).\nfactorial(N, F) :- N > 0, N1 is N - 1, factorial(N1, F1), F is N * F1.",
+      "rjesenje": ["F = 120"]
+    },
+    {
+      "id": 3,
+      "opis": "Napišite funkciju koja pronalazi osobu koja voli jesti pizzu. (koristi predikat 'voli_pizzu')",
+      "prolog_code": "voli(sven, pizza).\nvoli(domagoj, cips).\nvoli(paula, pizza).\nvoli(petra, steak).\nvoli_pizzu(X) :- voli(X, pizza).",
+      "rjesenje": ["X = sven", "X = paula"]
+    },
+    {
+      "id": 4,
+      "opis": "Napišite funkciju koja pronalazi postoji li put izmedu dva ruba na grafu. (koristi predikat 'putanja')",
+      "prolog_code": "rub(a, b).\nrub(b, c).\nrub(c, d).\nrub(b, d).\nputanja(X, Y) :- rub(X, Y).\nputanja(X, Y) :- rub(X, Z), rub(Z, Y).",
+      "rjesenje": ["true"]
+    },
+    {
+      "id": 5,
+      "opis": "Napišite funkciju koja pronalazi sve moguce kombinacije tri broja. (koristi predikat 'kombinacija')",
+      "prolog_code": "broj(1).\nbroj(2).\nbroj(3).\nkombinacija(X, Y, Z) :- broj(X), broj(Y), broj(Z).",
+      "rjesenje": ["X = 1, Y = 1, Z = 1", "X = 1, Y = 1, Z = 2", "X = 1, Y = 1, Z = 3", "X = 1, Y = 2, Z = 1", "X = 1, Y = 2, Z = 2", "X = 1, Y = 2, Z = 3", "X = 1, Y = 3, Z = 1", "X = 1, Y = 3, Z = 2", "X = 1, Y = 3, Z = 3", "X = 2, Y = 1, Z = 1", "X = 2, Y = 1, Z = 2", "X = 2, Y = 1, Z = 3", "X = 2, Y = 2, Z = 1", "X = 2, Y = 2, Z = 2", "X = 2, Y = 2, Z = 3", "X = 2, Y = 3, Z = 1", "X = 2, Y = 3, Z = 2", "X = 2, Y = 3, Z = 3", "X = 3, Y = 1, Z = 1", "X = 3, Y = 1, Z = 2", "X = 3, Y = 1, Z = 3", "X = 3, Y = 2, Z = 1", "X = 3, Y = 2, Z = 2", "X = 3, Y = 2, Z = 3", "X = 3, Y = 3, Z = 1", "X = 3, Y = 3, Z = 2", "X = 3, Y = 3, Z = 3"]
+    }
+  ]
+  
