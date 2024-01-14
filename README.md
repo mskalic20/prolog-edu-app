@@ -1,2 +1,2 @@
 # prolog-edu-app
-Repo za projekt iz kolegija UUI, prolog aplikacija
+Repozitorij za projekt iz kolegija UUI, prolog aplikacija
