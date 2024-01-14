@@ -4,6 +4,11 @@ Repozitorij za projekt iz kolegija UUI, prolog aplikacija
 ---------------------------------------------------------------------------------
 
 UPUTE ZA POKRETANJE
+
+Sve potrebno se nalazi u folderu PrologEduApp/prolog_edu
+
+ako tu nije vidljivo, također je postavljen i zip sa svim datotekama
+
 u terminalu se sa naredbom cd postaviti na pravilnu lokaciju
 
 u mome slucaju to je bilo
