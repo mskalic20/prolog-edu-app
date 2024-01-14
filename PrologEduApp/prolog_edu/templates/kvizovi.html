@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kvizovi - PrologEduApp</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="/">Početna</a></li>
+            <li><a href="/lekcije">Lekcije</a></li>
+            <li><a href="/kvizovi">Kvizovi</a></li>
+            <li><a href="/projekti">Projekti i Primjeri koda</a></li>
+        </ul>
+    </div>
+    <div class="sadrzaj">
+        <div class="sadrzaj">
+            <div class="quiz-buttons">
+                <button onclick="showQuiz('quiz1')">Kviz1</button>
+                <button onclick="showQuiz('quiz2')">Kviz2</button>
+                <!-- Gumb za svaki novi kviz -->
+            </div>
+        <div id="quiz1" class="quiz" style="display:none;">
+            <div class="question">
+                <p>1. What is Prolog?</p>
+                <input type="radio" id="q1a1" name="q1" value="A">
+                <label for="q1a1">A. Programming language</label><br>
+                <input type="radio" id="q1a2" name="q1" value="B">
+                <label for="q1a2">B. Database system</label><br>
+                <!-- Ostali odgovori -->
+            </div>
+            
+        </div>
+        <div id="quiz2" class="quiz" style="display:none;">
+            <!-- Sadržaj za Kviz2 -->
+        </div>
+        <!-- Novi kvizovi -->        
+        
+        <script>
+            function showQuiz(quizId) {
+                
+                var quizzes = document.getElementsByClassName('quiz');
+                for (var i = 0; i < quizzes.length; i++) {
+                    quizzes[i].style.display = 'none';
+                }
+        
+                if (quizId) {
+                    var selectedQuiz = document.getElementById(quizId);
+                    if (selectedQuiz) {
+                        selectedQuiz.style.display = 'block';
+                    }
+                }
+            }
+        </script>
+        
+            
+        </form>
+    </div>
+</body>
+</html>

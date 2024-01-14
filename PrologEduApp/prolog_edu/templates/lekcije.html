@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lekcije - PrologEduApp</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="/">Početna</a></li>
+            <li><a href="/lekcije">Lekcije</a></li>
+            <li><a href="/kvizovi">Kvizovi</a></li>
+            <li><a href="/projekti">Projekti i Primjeri koda</a></li>
+        </ul>
+    </div>
+    <div class="sadrzaj">
+        <h1>PrologEduApp</h1>
+        <h2>Lekcije</h2>
+        <div class="category">
+            <h3>Početnik</h3>
+            <button onclick="showLesson('lessonp1')">Početnik 1</button>
+            <button onclick="showLesson('lessonp2')">Početnik 2</button>
+            <!-- Gumb za nove teme -->
+        </div>
+        
+        <div id="lessonp1" class="lesson-content" style="display:none;">
+            <h4>Uvod u Prolog</h4>
+            <p>Prolog je deklarativni programski jezik.</p>
+        </div>
+        <div id="lessonp2" class="lesson-content" style="display:none;">
+            <h4>Prolog baze podataka</h4>
+            <p>Prolog baze podataka se sastoje od činjenica i pravila.</p>
+        </div>
+        <div class="category">
+            <h3>Srednje</h3>
+            <button onclick="showLesson('lessons1')">Srednji 1</button>
+            <button onclick="showLesson('lessons2')">Srednji 2</button>
+            <!-- Gumb za nove teme -->
+        </div>
+        
+        <div id="lessons1" class="lesson-content" style="display:none;">
+            <h4>Nesto srednje</h4>
+             <p>Srednja tema</p>
+        </div>
+        <div id="lessons2" class="lesson-content" style="display:none;">
+            <h4>Opet srednje</h4>
+            <p>Srednja tema 2</p>
+        </div>
+        
+    </div>
+
+    <script>
+        function showLesson(lessonId) {
+            // Sakrijva sve lekcije kada je jedna orabrana
+            var lessons = document.getElementsByClassName('lesson-content');
+            for (var i = 0; i < lessons.length; i++) {
+                lessons[i].style.display = 'none';
+            }
+           // Prikaz odabrane lekcije
+            var selectedLesson = document.getElementById(lessonId);
+            if (selectedLesson) {
+                selectedLesson.style.display = 'block';
+            }
+        }
+    </script>
+    
+</body>
+</html>

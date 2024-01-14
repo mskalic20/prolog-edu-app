@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekti i Primjeri Koda</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/tau-prolog.js"></script>
+</head>
+<body data-zadaci="{{ zadaci | tojson | safe }}">
+    <div class="sidebar">
+        <ul>
+            <li><a href="/">Početna</a></li>
+            <li><a href="/lekcije">Lekcije</a></li>
+            <li><a href="/kvizovi">Kvizovi</a></li>
+            <li><a href="/projekti">Projekti i Primjeri koda</a></li>
+        </ul>
+    </div>
+    
+    <div class="sadrzaj">
+        <h1>Projekti i Primjeri Koda</h1>
+           
+        <form id="prolog-form">
+            <textarea id="prolog-code" placeholder="Unesite svoj Prolog kod ovdje..."></textarea>
+            <input type="text" id="prolog-query" placeholder="Upišite naredbu...">
+            <button id="submit-solution-button" type="button" onclick="runProlog()">Provjeri Rješenje</button>
+            <button id="analyze-prolog-code-button" type="button">Analiza programa</button>
+        </form>
+        <div id="prolog-output"></div>
+        <div id="prolog-analysis-output"></div>
+    </div>
+   
+    <div class="task-list">
+        {% for zadatak in zadaci %}
+            <div class="task" data-task-id="{{ zadatak.id }}">
+                <h2>Zadatak {{ zadatak.id }}</h2>
+                <p>{{ zadatak.opis }}</p>
+            </div>
+        {% endfor %}
+    </div>
+       
+     
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.task').forEach(taskElement => {
+        taskElement.addEventListener('click', function() {
+            var taskId = this.getAttribute('data-task-id');
+            showTaskDetails(taskId);
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var zadaciData = document.body.getAttribute('data-zadaci');
+    var zadaci = JSON.parse(zadaciData);
+});
+       function showTaskDetails(taskId) {
+            var task = zadaci.find(z => z.id === taskId);
+            if (!task) {
+            alert("Zadatak nije pronađen.");
+            return;
+            }
+        document.getElementById('task-title').textContent = "Zadatak " + task.id;
+        document.getElementById('task-description').textContent = task.opis;
+        document.getElementById('task-details-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+        document.getElementById('task-details-modal').style.display = 'none';
+        }
+ 
+</script>
+
+<script>
+    function runProlog() {
+    var session = pl.create();
+    var code = document.getElementById('prolog-code').value;
+    var query = document.getElementById('prolog-query').value;
+    var output = document.getElementById('prolog-output');
+    output.textContent = ""; 
+
+    session.consult(code, {
+        success: function() {
+            session.query(query, {
+                success: function(goal) {
+                    var getAnswer = function() {
+                        session.answer({
+                            success: function(answer) {
+                                output.textContent += pl.format_answer(answer) + "\n";
+                                getAnswer(); // Rekurzivno dohvaćanje sljedećeg odgovora
+                            },
+                            fail: function() {
+                                // Kada nema više rješenja
+                                output.textContent += "\n";
+                            },
+                            error: function(err) {
+                                output.textContent += "Greška: " + err.toString();
+                            },
+                            limit: function() {
+                                output.textContent += "Dosegnuto ograničenje.\n";
+                            }
+                        });
+                    };
+                    getAnswer(); // iteracija kroz sva rješenja
+                },
+                error: function(err) {
+                    output.textContent = "Greška u upitu: " + err.toString();
+                }
+            });
+        },
+        error: function(err) {
+            output.textContent = "Greška u kodu: " + err.toString();
+        }
+    });
+    fetch('/check_solution', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            task_id: document.getElementById('selected-task-id').value,
+            solution: code,
+            query: query,
+            result: output.textContent  
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        
+        if (data.is_correct) {
+            alert('Correct solution!');
+        } else {
+            alert('Incorrect solution. ' + data.ai_feedback);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error checking the solution.');
+    });
+}
+
+
+function checkSolution() {
+    var userCode = document.getElementById('prolog-code').value;
+    var userQuery = document.getElementById('prolog-query').value;
+    var taskId = document.getElementById('selected-task-id').value;
+
+    fetch('/check_solution', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ task_id: taskId, solution: userCode, query: userQuery })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.is_correct) {
+            alert('Correct solution!');
+        } else {
+            alert('Incorrect solution. ' + data.ai_feedback);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error checking the solution.');
+    });
+}
+onclick=document.getElementById('selected-task-id').value = '1';
+onclick=document.getElementById('selected-task-id').value = '2';
+onclick=document.getElementById('selected-task-id').value = '3';
+
+
+document.getElementById('submit-solution-button').addEventListener('click', runProlog);
+document.getElementById('analyze-prolog-code-button').addEventListener('click', analyzePrologCode);
+
+</script>
+<script>
+    function analyzePrologCode() {
+    var prologCode = document.getElementById('prolog-code').value;
+
+    fetch('/analyze_prolog_code', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ code: prologCode })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Display the analysis on the page
+        document.getElementById('prolog-analysis-output').textContent = data.analysis;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+document.getElementById('analyze-prolog-code-button').addEventListener('click', analyzePrologCode);
+
+    </script>
+
+
+
+</body>
+</html>
